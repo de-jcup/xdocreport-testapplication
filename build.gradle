@@ -1,0 +1,65 @@
+plugins {
+
+    id 'java'
+    id 'application'
+}
+
+
+application {
+    mainClass = 'de.jcup.examples.xdocreport.TestApplication'
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+
+    // see https://github.com/opensagres/xdocreport/wiki/XDocReport200
+    implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.xdocreport.document.docx', version: '2.0.2' // msword docx
+    implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.xdocreport.converter.docx.xwpf', version: '2.0.2' // converter dependency
+    
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------
+ *
+ *  Additional parts from EGradle template for comfortable eclipse setup
+ *  - next parts are only interesting for eclipse import 
+ *  - not relevant for the example itself
+ * ---------------------------------------------------------------------------- */
+// Apply the eclipse plugin to add support for Eclipse
+apply plugin: 'eclipse'
+
+// To have javadocs in eclipse added - where no sources are available - we need these lines:
+// see https://docs.gradle.org/current/dsl/org.gradle.plugins.ide.eclipse.model.EclipseClasspath.html
+eclipse {	 
+  classpath {
+	downloadSources = true // default: true
+	downloadJavadoc = true // default: false
+  }
+} 
+
+// first define an array containing source folders to be always available - even when not existing already
+def eclipseSourceFolders=[
+	'src/main/java',
+	'src/main/resources',
+	'src/test/java',
+	'src/test/resources'
+];
+// now create those source folders when not existing, when eclipse task is executed:
+tasks.eclipse.dependsOn << {
+		
+	for (String sourceFolder: eclipseSourceFolders){ 
+		def resourceDir = new File(project.projectDir, sourceFolder)
+		if( !resourceDir.exists() && ! resourceDir.mkdirs() ) {
+    		logger.info("Not able to create %1",resourceDir);
+    	}
+	}
+}

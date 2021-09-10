@@ -1,0 +1,54 @@
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+:toc:
+
+== About
+
+This just a simple demo Java application to show how to use
+XDocReport Version 2.0.2 to convert from an existing DOCX document
+to a PDF.
+
+=== How to start test application from command line
+`./gradlew run`
+
+[TIP]
+====
+After execution you will find in last line something like +  
+`Wrote converted PDF to:/tmp/example_xdocreport_docx2pdf12410894179209343094.pdf`
+
+This is the generated PDF file. The origin DOCX file is inside `src/main/resources`.
+====
+
+
+=== How does it work - in a nutshell:
+
+- add following two dependencies inside your `build.gradle`: 
+
+[source,groovy]
+----
+dependencies {
+
+    // see https://github.com/opensagres/xdocreport/wiki/XDocReport200
+    implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.xdocreport.document.docx', version: '2.0.2' 
+    implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.xdocreport.converter.docx.xwpf', version: '2.0.2'
+}
+----
+
+- all other parts can be found in `TestApplication.java` :
+
+[source,java]
+----
+include::src/main/java/de/jcup/examples/xdocreport/TestApplication.java[]
+----
+
+=== Import into eclipse
+
+- execute `./gradlew cleanEclipse eclipse`
+- import "existing eclipse project" into workspace  
