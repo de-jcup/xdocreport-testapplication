@@ -16,7 +16,11 @@ XDocReport Version 2.0.2 to convert from an existing DOCX document
 to a PDF.
 
 === How to start test application from command line
-`./gradlew run`
+```
+git clone https://github.com/de-jcup/xdocreport-testapplication
+cd xdocreport-testapplication
+./gradlew run`
+```
 
 [TIP]
 ====
